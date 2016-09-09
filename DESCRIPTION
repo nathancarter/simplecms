@@ -1,0 +1,15 @@
+Package: simplecms
+Type: Package
+Title: Simple Course Management System
+Version: 0.1.0
+Author: person("Nathan", "Carter", email = "ncarter@bentley.edu", role = c("aut", "cre"))
+Maintainer: Nathan Carter <ncarter@bentley.edu>
+Description: Useful on an RStudio Server Pro instance, for instructors who wish to
+  distribute handout files to students, collect and return homework files,
+  and monitor in-class work that's happening on the server.
+License: LGPL
+LazyData: TRUE
+Imports:
+  shiny (>= 0.13),
+  miniUI (>= 0.1.1),
+  rstudioapi (>= 0.5)

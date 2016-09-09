@@ -1,0 +1,4 @@
+Name: Simple Course Management System
+Description: Distribute files to and collect files from students in a course
+Binding: simpleCMSAddin
+Interactive: true
