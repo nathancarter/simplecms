@@ -19,6 +19,7 @@ simpleCMSAddin <- function() {
     "Collect an assignment",
     "Return a graded assignment"
   )
+  TESTING <- TRUE
 
   # User interface
 
@@ -135,10 +136,17 @@ simpleCMSAddin <- function() {
 
     # Compute paths for filesystem utilities
 
-    studentPath <- function ( student, file ) { paste0( '~', student, '/', preferences$submission, '/', file ) }
-    teamPath <- function ( student, file ) { paste0( '~', student, '/', preferences$teamfolder, '/', file ) }
-    instructorPath <- function ( student, file ) { paste0( preferences$grading, '/', student, '--', file ) }
-    gradedPath <- function ( student, file ) { studentPath( student, paste0( 'graded--', file ) ) }
+    if ( TESTING ) {
+      studentPath <- function ( student, file ) { paste0( '~', student, '/', preferences$submission, '/', file ) }
+      teamPath <- function ( student, file ) { paste0( '~', student, '/', preferences$teamfolder, '/', file ) }
+      instructorPath <- function ( student, file ) { paste0( preferences$grading, '/', student, '--', file ) }
+      gradedPath <- function ( student, file ) { studentPath( student, paste0( 'graded--', file ) ) }
+    } else {
+      studentPath <- function ( student, file ) { paste0( './test-data/', student, '/', file ) }
+      teamPath <- function ( student, file ) { paste0( './test-data/team1/', file ) }
+      instructorPath <- function ( student, file ) { paste0( preferences$grading, '/', student, '--', file ) }
+      gradedPath <- function ( student, file ) { studentPath( student, paste0( 'graded--', file ) ) }
+    }
 
     # Splitting students list
 
@@ -162,7 +170,7 @@ simpleCMSAddin <- function() {
                                                      preferences$grading, '):</label>' ) ) )
     } )
 
-    }
+  }
 
   # Launch the app in the user's default browser
 
