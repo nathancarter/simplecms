@@ -1,0 +1,22 @@
+
+Instead of your tags$textarea call, with a hacked label, use the new textarea support (2 instances).
+
+Make a separate file and move into it all the preferences utilities.
+Then change them so that they aren't accessed through a global variable,
+but through a getPreference() function.
+Source that file in simpleCMSAddin.R and switch all preferences$x expressions to getPreference('x').
+Move the studentPath() function and its friends into that file as well.
+Allow the toggling of the global TESTING variable with a setTesting() function; default is false.
+Create a preferenceNames() function that gets the list of preferences keys.
+Replace the observeEvent() call sequence for preferences with a loop through that list of keys.
+
+Fix the appearance and function of the file input box:
+ 1. Remove the file input box and its kludgey prompt
+ 2. Give an ID to that column
+ 3. Define a function inside the server function that removes all content of that column
+    and then replaces it with the appropriate text input and prompt
+ 4. Call that function in the current observeEvent() handler
+
+Use three different names for the three different file inputs,
+so that each saves its last content separately.
+This is most convenient for the users.
