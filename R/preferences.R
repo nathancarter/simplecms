@@ -18,7 +18,7 @@ local( {
     if ( !file.exists( prefsFile ) ) {
       preferences <<- list(
         students = c(),
-        shared = 'instructor',
+        individual = 'invididual',
         grading = 'to grade',
         teamfolder = 'team',
         mathjax = '\\def\\Z{\\mathbb{Z}}',
@@ -26,9 +26,12 @@ local( {
         filetocollect = '',
         filetoreturn = ''
       )
+      print( 'Created new preferences file!' )
+      print( preferences )
       savePreferences()
     }
     preferences <<- readRDS( prefsFile )
+    print( preferences )
   }
   loadPreferences()
 
@@ -64,7 +67,7 @@ studentPath <- function ( student, file ) {
   if ( testModeOn() )
     paste0( './test-data/', student, '/', file )
   else
-    paste0( '~', student, '/', getPreference( 'submission' ), '/', file )
+    paste0( '~', student, '/', getPreference( 'individual' ), '/', file )
 }
 
 teamPath <- function ( student, file ) {
