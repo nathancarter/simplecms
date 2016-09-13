@@ -1,11 +1,1 @@
 
-Fix the appearance and function of the file input box:
- 1. Remove the file input box and its kludgey prompt
- 2. Give an ID to that column
- 3. Define a function inside the server function that removes all content of that column
-    and then replaces it with the appropriate text input and prompt
- 4. Call that function in the current observeEvent() handler
-
-Use three different names for the three different file inputs,
-so that each saves its last content separately.
-This is most convenient for the users.

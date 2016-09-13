@@ -22,7 +22,9 @@ local( {
         grading = 'to grade',
         teamfolder = 'team',
         mathjax = '\\def\\Z{\\mathbb{Z}}',
-        fileInput = ''
+        filetodistribute = '',
+        filetocollect = '',
+        filetoreturn = ''
       )
       savePreferences()
     }
