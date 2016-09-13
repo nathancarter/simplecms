@@ -82,7 +82,7 @@ gradedPath <- function ( student, file )
 
 studentNames <- function () {
   if ( testModeOn() )
-    strsplit( getPreference( 'students' ), '\\s+' )[[1]]
-  else
     c( 'student1', 'student2' )
+  else
+    strsplit( getPreference( 'students' ), '\\s+' )[[1]]
 }
