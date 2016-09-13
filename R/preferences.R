@@ -26,12 +26,9 @@ local( {
         filetocollect = '',
         filetoreturn = ''
       )
-      print( 'Created new preferences file!' )
-      print( preferences )
       savePreferences()
     }
     preferences <<- readRDS( prefsFile )
-    print( preferences )
   }
   loadPreferences()
 
