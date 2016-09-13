@@ -24,7 +24,8 @@ local( {
         mathjax = '\\def\\Z{\\mathbb{Z}}',
         filetodistribute = '',
         filetocollect = '',
-        filetoreturn = ''
+        filetoreturn = '',
+        filetomonitor = ''
       )
       savePreferences()
     }

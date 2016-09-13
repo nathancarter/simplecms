@@ -5,7 +5,6 @@
 #   Test Package:              'Cmd + Shift + T'
 
 source( 'R/preferences.R' )
-enableTestMode()
 
 simpleCMSAddin <- function() {
 
@@ -68,21 +67,24 @@ simpleCMSAddin <- function() {
 
       tabPanel(
         "File Sharing",
+        p( paste0( 'Use the drop-down to choose whether to distribute a file, collect an assignment for grading, ',
+                   'or return a graded assignment.  Then fill in the filename as directed thereafter.  ' ) ),
+        p( 'The filenames in the table tell you the precise file transfer actions the buttons will do.' ),
         fluidRow(
           column(
-            4,
+            3,
             selectInput( "sharingType", label = "Choose a file sharing action:",
                          choices = sharingChoices, selected = 1 )
           ),
           column(
-            4,
-            textInput( 'filetodistribute', 'File to distribute (full path):', getPreference( 'filetodistribute' ) ),
-            textInput( 'filetocollect', 'File to collect (no path):', getPreference( 'filetocollect' ) ),
-            textInput( 'filetoreturn', 'File to return (no path or username):', getPreference( 'filetoreturn' ) ),
+            6,
+            textInput( 'filetodistribute', 'File to distribute (full path):', getPreference( 'filetodistribute' ), width='600px' ),
+            textInput( 'filetocollect', 'File to collect (no path):', getPreference( 'filetocollect' ), width='600px' ),
+            textInput( 'filetoreturn', 'File to return (no path or username):', getPreference( 'filetoreturn' ), width='600px' ),
             textOutput( 'fileStatus' )
           ),
           column(
-            4,
+            3,
             uiOutput( 'copySafeUI' ),
             br(),
             uiOutput( 'copyOverUI' )
@@ -106,7 +108,21 @@ simpleCMSAddin <- function() {
 
       tabPanel(
         "Monitoring",
-        p( "Coming later" )
+        p( paste0( 'Enter the full path to an HTML file (knitted from .Rmd) that you wish to monitor.  ',
+                   'Any copy in a student or team folder will be detected.  ',
+                   'Check boxes are shown for all sections where the files differ.  ',
+                   'Check the boxes for the sections you want to view/compare at the bottom of this page.' ) ),
+        fluidRow(
+          column( 1 ),
+          column( 6, textInput( 'filetomonitor', 'Master HTML file to monitor (absolute path):', getPreference( 'filetomonitor' ), width='600px' ) ),
+          column( 4, uiOutput( 'fileMonitorStatus' ) ),
+          column( 1 )
+        ),
+        fluidRow( id = 'monitorHeading', column( 3, h4( 'Copies' ) ) ),
+        hr(),
+        hr( id = 'monitorLine' ),
+        h2( 'Selected Sections' ),
+        uiOutput( 'selectedSections' )
       )
     )
   )
@@ -262,10 +278,146 @@ simpleCMSAddin <- function() {
     observeEvent( input$copySafe, { transferFiles( FALSE ) } )
     observeEvent( input$copyOver, { transferFiles( TRUE ) } )
 
+    # Auxiliary routine for finding any student or team files with a given basename
+
+    findStudentAndTeamFiles <- function ( base ) {
+      results <- c( input$filetomonitor )
+      check <- function ( file )
+        if ( is.na( match( file, results ) ) & file.exists( file ) ) results <<- c( results, file )
+      for ( student in studentNames() ) {
+        check( studentPath( student, base ) )
+        check( teamPath( student, base ) )
+      }
+      results
+    }
+
+    # Auxiliary routine for extracting sections from an HTML file as character data
+
+    getHTMLFileSections <- function ( file ) {
+      xml <- htmlTreeParse( file, useInternal = TRUE )
+      sections <- xpathApply( xml, "//div[@class='section level1']" )
+      result <- c()
+      for ( section in sections ) result <- c( result, as( section, "character" ) )
+      result
+    }
+
+    # Watch file to monitor input and update its status
+
+    observeEvent( input$filetomonitor, {
+
+      # Clear out UI from last time
+      removeUI( '.numberedHeading', multiple = TRUE )
+      removeUI( '.monitoredFileRow', multiple = TRUE )
+
+      if ( !file.exists( input$filetomonitor ) ) {
+        output$fileMonitorStatus <- renderText( 'Does not exist' )
+      } else {
+
+        # List of sections next to file input box
+
+        tryCatch( {
+          xml <- htmlTreeParse( input$filetomonitor, useInternal = TRUE )
+          sectionHeadings <- xpathApply( xml, "//div[@class='section level1']/h1", xmlValue )
+          status <- list( paste( length( sectionHeadings ), ' top-level headings:' ) )
+          for ( i in seq_along( sectionHeadings ) ) {
+            status[[length(status)+1]] <- br()
+            status[[length(status)+1]] <- paste0( i, '. ', sectionHeadings[[i]] )
+          }
+          output$fileMonitorStatus <- renderUI( do.call( p, status ) )
+        }, warning = function ( w ) {
+          output$fileMonitorStatus <- renderUI( p( 'Could not read that file as XML/HTML' ) )
+        }, error = function ( e ) {
+          output$fileMonitorStatus <- renderUI( p( 'Could not read that file as XML/HTML' ) )
+        } )
+        originalSections <- getHTMLFileSections( input$filetomonitor )
+
+        # List of section numbers as column headers
+
+        for ( i in seq_along( sectionHeadings ) )
+          insertUI( '#monitorHeading', 'beforeEnd', column( 1, class = 'numberedHeading', h4( paste0( '§', i ) ) ) )
+
+        # List of files as row headers, with check boxes for sections with edits
+
+        files <- findStudentAndTeamFiles( basename( input$filetomonitor ) )
+        for ( j in seq_along( files ) ) {
+          file <- files[j]
+          thisFileSections <- getHTMLFileSections( file )
+          arguments <- list( column( 3, p( file ) ) )
+          for ( i in seq_along( thisFileSections ) )
+            if ( i <= length( originalSections ) )
+              arguments[[length(arguments)+1]] <- column(
+                1,
+                if ( ( j > 1 ) & ( thisFileSections[i] == originalSections[i] ) )
+                  p()
+                else
+                  checkboxInput( paste0( 'file', j, 'section', i ), '', FALSE )
+              )
+          arguments[['class']] <- 'monitoredFileRow'
+          insertUI( '#monitorLine', 'beforeBegin', do.call( fluidRow, arguments ) )
+        }
+
+      }
+    } )
+
+    # Auxiliary function for getting the list of file/section pairs the user has selected
+
+    fileSectionPairsSelected <- function () {
+      result <- list()
+      re <- '^file(\\d+)section(\\d+)$'
+      for ( name in sort( names( input ) ) ) {
+        match <- gregexpr( re, name )
+        if ( match[[1]][1] != -1 ) {
+          if ( input[[name]] ) {
+            fileNumber <- as.numeric( gsub( re, '\\1', regmatches( name, match )[[1]] ) )
+            sectionNumber <- as.numeric( gsub( re, '\\2', regmatches( name, match )[[1]] ) )
+            result[[length(result)+1]] <- c( fileNumber, sectionNumber )
+          }
+        }
+      }
+      result
+    }
+
+    # Auxiliary function for repopulating the list of selected sections
+
+    lastHTML <- ''
+    repopulateSectionsList <- function ( selected ) {
+      html <- paste0( "\\(", getPreference( 'mathjax' ), "\\)" )
+      files <- findStudentAndTeamFiles( basename( input$filetomonitor ) )
+      foundASection <- FALSE
+      for ( pair in selected ) {
+        section <- getHTMLFileSections( files[pair[1]] )[pair[2]]
+        html <- paste( html, paste0( '<center><font color=red><b>From ', files[pair[1]], ':</b></font></center>' ), section )
+        foundASection <- TRUE
+      }
+      if ( !foundASection )
+        html <- paste( html, '<p>(No sections selected.)</p>' )
+      if ( lastHTML != html ) {
+        output$selectedSections <- renderUI( withMathJax( HTML( html ) ) )
+        lastHTML <<- html
+      }
+    }
+
+    # Every half second, if the set of checked checkboxes has changed, update the list shown below them
+    # (and if 5 seconds have gone by, update no matter what)
+
+    lastTime <- NULL
+    timeWithNoUpdates <- 0
+    observe( {
+      invalidateLater( 500 )
+      thisTime <- fileSectionPairsSelected()
+      if ( ( timeWithNoUpdates > 10 ) | !isTRUE( all.equal( lastTime, thisTime ) ) ) {
+        lastTime <<- thisTime
+        repopulateSectionsList( thisTime )
+        timeWithNoUpdates <<- 0
+      } else {
+        timeWithNoUpdates <<- timeWithNoUpdates + 1
+      }
+    } )
+
   }
 
   # Launch the app in the user's default browser
 
-  runGadget( ui, server, viewer = dialogViewer( "Simple Course Management System", 1024, 768 ) )
+  runGadget( ui, server, viewer = browserViewer() )
 
 }
