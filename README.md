@@ -22,8 +22,9 @@ The Addin provides the instructor a GUI with these features:
 To install it, take these steps from within RStudio on your server:
 
  1. From your R console, run `install.packages('devtools')`.
- 2. Next, run `install_github('nathancarter/simplecms')`.
- 3. The Addin should then be available on your Addins menu in the toolbar (or as a submenu on the Tools menu).
+ 2. Load that installed package with `library('devtools')`.
+ 3. Next, run `install_github('nathancarter/simplecms')`.
+ 4. The Addin should then be available on your Addins menu in the toolbar (or as a submenu on the Tools menu).
 
 ## Screenshots
 
