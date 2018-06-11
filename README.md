@@ -17,8 +17,10 @@ The Addin provides the instructor a GUI with these features:
  * returning graded assignments to students (automatically renaming so as not to collide with ungraded versions)
  * monitoring in-class work students are doing on the server live
 
+To see these in action, see [the screencasts section,](#screencasts) below.
+
 ## Installation
- 
+
 To install it, take these steps from within RStudio on your server:
 
  1. From your R console, run `install.packages('devtools')`.
@@ -45,6 +47,28 @@ The drop-down menu on the left contains three options: Distribute a file to stud
 ![](screenshot3-small.png)
 
 The grid of checkboxes shows which sections have been edited by students, so that you can track student progress on in-class worksheets.  You can showcase the work of a student or team, or compare versions, by checking boxes and scrolling down, where their contents will be previewed live.
+
+## Screencasts
+
+### Distributing a file to students
+
+Screencast coming soon!
+
+### Collecting student work
+
+Screencast coming soon!
+
+### Providing feedback
+
+Screencast coming soon!
+
+### Returning graded files to students
+
+Screencast coming soon!
+
+### Live monitoring of in-class work
+
+Screencast coming soon!
 
 ## License
 
