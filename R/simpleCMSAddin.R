@@ -145,21 +145,21 @@ simpleCMSAddin <- function() {
     lastFileUI <- -1
     updateFileUI <- function ( index ) {
       if ( index == 1 ) {
-        show( 'filetodistribute' )
-        hide( 'filetocollect' )
-        hide( 'filetoreturn' )
+        shinyjs::show( 'filetodistribute' )
+        shinyjs::hide( 'filetocollect' )
+        shinyjs::hide( 'filetoreturn' )
         output$copySafeUI <- renderUI( actionButton( 'copySafe', 'Distribute (no overwriting)' ) )
         output$copyOverUI <- renderUI( actionButton( 'copyOver', 'Distribute (overwriting if needed)' ) )
       } else if ( index == 2 ) {
-        hide( 'filetodistribute' )
-        show( 'filetocollect' )
-        hide( 'filetoreturn' )
+        shinyjs::hide( 'filetodistribute' )
+        shinyjs::show( 'filetocollect' )
+        shinyjs::hide( 'filetoreturn' )
         output$copySafeUI <- renderUI( actionButton( 'copySafe', 'Collect (no overwriting)' ) )
         output$copyOverUI <- renderUI( actionButton( 'copyOver', 'Collect (overwriting if needed)' ) )
       } else {
-        hide( 'filetodistribute' )
-        hide( 'filetocollect' )
-        show( 'filetoreturn' )
+        shinyjs::hide( 'filetodistribute' )
+        shinyjs::hide( 'filetocollect' )
+        shinyjs::show( 'filetoreturn' )
         output$copySafeUI <- renderUI( actionButton( 'copySafe', 'Return (no overwriting)' ) )
         output$copyOverUI <- renderUI( actionButton( 'copyOver', 'Return (overwriting if needed)' ) )
       }
