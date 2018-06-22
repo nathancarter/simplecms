@@ -294,7 +294,11 @@ simpleCMSAddin <- function() {
     # Auxiliary routine for extracting sections from an HTML file as character data
 
     getHTMLFileSections <- function ( file ) {
-      xml <- htmlTreeParse( file, useInternal = TRUE )
+      xml <- NULL
+      tryCatch( {
+        xml <- htmlTreeParse( file, useInternal = TRUE )
+      }, error = function ( e ) { } )
+      if ( is.null( xml ) ) { return( NULL ) }
       sections <- c()
       tryCatch( {
         sections <- xpathApply( xml, "//div[@class='section level1']" )
