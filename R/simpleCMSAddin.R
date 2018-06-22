@@ -295,7 +295,10 @@ simpleCMSAddin <- function() {
 
     getHTMLFileSections <- function ( file ) {
       xml <- htmlTreeParse( file, useInternal = TRUE )
-      sections <- xpathApply( xml, "//div[@class='section level1']" )
+      sections <- c()
+      tryCatch( {
+        sections <- xpathApply( xml, "//div[@class='section level1']" )
+      }, error = function ( e ) { } )
       result <- c()
       for ( section in sections ) result <- c( result, as( section, "character" ) )
       result
@@ -315,6 +318,7 @@ simpleCMSAddin <- function() {
 
         # List of sections next to file input box
 
+        sectionHeadings <- c()
         tryCatch( {
           xml <- htmlTreeParse( input$filetomonitor, useInternal = TRUE )
           sectionHeadings <- xpathApply( xml, "//div[@class='section level1']/h1", xmlValue )
