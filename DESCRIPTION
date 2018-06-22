@@ -1,7 +1,7 @@
 Package: simplecms
 Type: Package
 Title: Simple Course Management System
-Version: 0.1.2
+Version: 0.1.3
 Author: person("Nathan", "Carter", email = "ncarter@bentley.edu", role = c("aut", "cre"))
 Maintainer: Nathan Carter <ncarter@bentley.edu>
 Description: Useful on an RStudio Server Pro instance, for instructors who wish to
