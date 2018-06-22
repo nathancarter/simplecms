@@ -107,15 +107,17 @@ boxes and scrolling down, where their contents will be previewed live.
 
 ## Screencasts
 
-### [Distributing a file to students (YouTube)](https://youtu.be/TCAEaODj_-M)
+All are links to videos on YouTube:
 
-### [Collecting student work (YouTube)](https://youtu.be/NKZ9U4fktVE)
+[Distributing a file to students](https://youtu.be/TCAEaODj_-M)
 
-### [Providing feedback](https://youtu.be/QokCVrDzPQs)
+[Collecting student work](https://youtu.be/NKZ9U4fktVE)
 
-### [Returning graded files to students](https://youtu.be/dMb_hg8I0UM)
+[Providing feedback](https://youtu.be/QokCVrDzPQs)
 
-### [Live monitoring of in-class work](https://youtu.be/57nXUu6CGeo)
+[Returning graded files to students](https://youtu.be/dMb_hg8I0UM)
+
+[Live monitoring of in-class work](https://youtu.be/57nXUu6CGeo)
 
 ## License
 
