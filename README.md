@@ -109,23 +109,23 @@ boxes and scrolling down, where their contents will be previewed live.
 
 ### Distributing a file to students
 
-<iframe width="560" height="315" src="https://youtu.be/TCAEaODj_-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Screencast 1](https://img.youtube.com/vi/TCAEaODj_-M/0.jpg)]https://youtu.be/TCAEaODj_-M]
 
 ### Collecting student work
 
-<iframe width="560" height="315" src="https://youtu.be/NKZ9U4fktVE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Screencast 1](https://img.youtube.com/vi/NKZ9U4fktVE/0.jpg)]https://youtu.be/NKZ9U4fktVE]
 
 ### Providing feedback
 
-<iframe width="560" height="315" src="https://youtu.be/QokCVrDzPQs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Screencast 1](https://img.youtube.com/vi/QokCVrDzPQs/0.jpg)]https://youtu.be/QokCVrDzPQs]
 
 ### Returning graded files to students
 
-<iframe width="560" height="315" src="https://youtu.be/dMb_hg8I0UM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Screencast 1](https://img.youtube.com/vi/dMb_hg8I0UM/0.jpg)]https://youtu.be/dMb_hg8I0UM]
 
 ### Live monitoring of in-class work
 
-<iframe width="560" height="315" src="https://youtu.be/57nXUu6CGeo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Screencast 1](https://img.youtube.com/vi/57nXUu6CGeo/0.jpg)]https://youtu.be/57nXUu6CGeo]
 
 ## License
 
