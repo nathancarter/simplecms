@@ -109,23 +109,23 @@ boxes and scrolling down, where their contents will be previewed live.
 
 ### Distributing a file to students
 
-[![Screencast 1](https://img.youtube.com/vi/TCAEaODj_-M/0.jpg)]https://youtu.be/TCAEaODj_-M]
+[![Screencast 1](https://img.youtube.com/vi/TCAEaODj_-M/0.jpg)](https://youtu.be/TCAEaODj_-M)
 
 ### Collecting student work
 
-[![Screencast 1](https://img.youtube.com/vi/NKZ9U4fktVE/0.jpg)]https://youtu.be/NKZ9U4fktVE]
+[![Screencast 1](https://img.youtube.com/vi/NKZ9U4fktVE/0.jpg)](https://youtu.be/NKZ9U4fktVE)
 
 ### Providing feedback
 
-[![Screencast 1](https://img.youtube.com/vi/QokCVrDzPQs/0.jpg)]https://youtu.be/QokCVrDzPQs]
+[![Screencast 1](https://img.youtube.com/vi/QokCVrDzPQs/0.jpg)](https://youtu.be/QokCVrDzPQs)
 
 ### Returning graded files to students
 
-[![Screencast 1](https://img.youtube.com/vi/dMb_hg8I0UM/0.jpg)]https://youtu.be/dMb_hg8I0UM]
+[![Screencast 1](https://img.youtube.com/vi/dMb_hg8I0UM/0.jpg)](https://youtu.be/dMb_hg8I0UM)
 
 ### Live monitoring of in-class work
 
-[![Screencast 1](https://img.youtube.com/vi/57nXUu6CGeo/0.jpg)]https://youtu.be/57nXUu6CGeo]
+[![Screencast 1](https://img.youtube.com/vi/57nXUu6CGeo/0.jpg)](https://youtu.be/57nXUu6CGeo)
 
 ## License
 
