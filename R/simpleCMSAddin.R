@@ -333,7 +333,6 @@ simpleCMSAddin <- function() {
         }, error = function ( e ) {
           output$fileMonitorStatus <- renderUI( p( 'Could not read that file as XML/HTML' ) )
         } )
-        originalSections <- getHTMLFileSections( input$filetomonitor )
 
         # List of section numbers as column headers
 
@@ -342,23 +341,7 @@ simpleCMSAddin <- function() {
 
         # List of files as row headers, with check boxes for sections with edits
 
-        files <- findStudentAndTeamFiles( basename( input$filetomonitor ) )
-        for ( j in seq_along( files ) ) {
-          file <- files[j]
-          thisFileSections <- getHTMLFileSections( file )
-          arguments <- list( column( 3, p( file ) ) )
-          for ( i in seq_along( thisFileSections ) )
-            if ( i <= length( originalSections ) )
-              arguments[[length(arguments)+1]] <- column(
-                1,
-                if ( ( j > 1 ) & ( thisFileSections[i] == originalSections[i] ) )
-                  p()
-                else
-                  checkboxInput( paste0( 'file', j, 'section', i ), '', FALSE )
-              )
-          arguments[['class']] <- 'monitoredFileRow'
-          insertUI( '#monitorLine', 'beforeBegin', do.call( fluidRow, arguments ) )
-        }
+        repopulateSectionsList( list() )
 
       }
     } )
@@ -385,10 +368,37 @@ simpleCMSAddin <- function() {
 
     lastHTML <- ''
     repopulateSectionsList <- function ( selected ) {
+      # First, ensure the set of observed files and checkboxes is up-to-date
+      removeUI( '.monitoredFileRow', multiple = TRUE )
+      originalSections <- getHTMLFileSections( input$filetomonitor )
+      files <- findStudentAndTeamFiles( basename( input$filetomonitor ) )
+      pairEq <- function ( p1, p2 ) ( p1[1] == p2[1] ) & ( p1[2] == p2[2] )
+      visibleAndSelected <- list()
+      for ( j in seq_along( files ) ) {
+        file <- files[j]
+        thisFileSections <- getHTMLFileSections( file )
+        arguments <- list( column( 3, p( file ) ) )
+        for ( i in seq_along( thisFileSections ) )
+          if ( i <= length( originalSections ) )
+            arguments[[length(arguments)+1]] <- column(
+              1,
+              if ( ( j > 1 ) & ( thisFileSections[i] == originalSections[i] ) ) {
+                p()
+              } else {
+                thisOneSelected <- !is.null( selected ) & any( sapply( selected, pairEq, c( j, i ) ) )
+                if ( thisOneSelected )
+                  visibleAndSelected[[length(visibleAndSelected)+1]] <- c( j, i )
+                checkboxInput( paste0( 'file', j, 'section', i ), '', thisOneSelected )
+              }
+            )
+        arguments[['class']] <- 'monitoredFileRow'
+        insertUI( '#monitorLine', 'beforeBegin', do.call( fluidRow, arguments ) )
+      }
+      # then, based on their status, import content for the bottom of the page
       html <- paste0( "\\(", getPreference( 'mathjax' ), "\\)" )
       files <- findStudentAndTeamFiles( basename( input$filetomonitor ) )
       foundASection <- FALSE
-      for ( pair in selected ) {
+      for ( pair in visibleAndSelected ) {
         section <- getHTMLFileSections( files[pair[1]] )[pair[2]]
         html <- paste( html, paste0( '<center><font color=red><b>From ', files[pair[1]], ':</b></font></center>' ), section )
         foundASection <- TRUE
@@ -409,7 +419,7 @@ simpleCMSAddin <- function() {
     observe( {
       invalidateLater( 500 )
       thisTime <- fileSectionPairsSelected()
-      if ( ( timeWithNoUpdates > 10 ) | !isTRUE( all.equal( lastTime, thisTime ) ) ) {
+      if ( ( timeWithNoUpdates >= 10 ) | !isTRUE( all.equal( lastTime, thisTime ) ) ) {
         lastTime <<- thisTime
         repopulateSectionsList( thisTime )
         timeWithNoUpdates <<- 0
