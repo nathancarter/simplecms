@@ -109,23 +109,23 @@ boxes and scrolling down, where their contents will be previewed live.
 
 ### Distributing a file to students
 
-Screencast coming soon!
+<iframe width="560" height="315" src="https://youtu.be/TCAEaODj_-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### Collecting student work
 
-Screencast coming soon!
+<iframe width="560" height="315" src="https://youtu.be/NKZ9U4fktVE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### Providing feedback
 
-Screencast coming soon!
+<iframe width="560" height="315" src="https://youtu.be/QokCVrDzPQs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### Returning graded files to students
 
-Screencast coming soon!
+<iframe width="560" height="315" src="https://youtu.be/dMb_hg8I0UM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### Live monitoring of in-class work
 
-Screencast coming soon!
+<iframe width="560" height="315" src="https://youtu.be/57nXUu6CGeo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## License
 
