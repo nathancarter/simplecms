@@ -12,6 +12,7 @@ Contents:
  * [Installation](#installation)
  * [Setup](#setup)
  * [Screenshots](#screenshots)
+ * [Paper](#paper)
  * [Screencasts](#screencasts)
  * [License](#license)
 
@@ -114,6 +115,14 @@ The grid of checkboxes shows which sections have been edited by students, so
 that you can track student progress on in-class worksheets.  You can
 showcase the work of a student or team, or compare versions, by checking
 boxes and scrolling down, where their contents will be previewed live.
+
+## Paper
+
+For more details than this brief introduction can provide, please refer to
+the paper
+[Classroom Management with RStudio Server Professional](https://escholarship.org/uc/item/5092x4hx),
+freely available online from the journal
+[Technology Innovations in Statistics Education](https://escholarship.org/uc/uclastat_cts_tise).
 
 ## Screencasts
 
