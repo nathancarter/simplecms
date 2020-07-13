@@ -5,6 +5,9 @@ This repository holds a **Simple Course Management System** for use on
 RStudio Server Pro instances. It is distributed as an Addin for RStudio, to
 be run on the server.
 
+You can read summary information below, but the full details are given in
+[this paper](https://escholarship.org/uc/item/5092x4hx).
+
 Contents:
 
  * [Features](#features)
